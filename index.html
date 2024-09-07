@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+	<style>
+		.toastBox{
+		  position: fixed;
+		  top:20px;
+		  left:50%;
+		  border-radius: 10px;
+		  background-color: #1258a9;
+		  color:white;
+		  font-family: sans-serif;
+		  padding:20px;
+		  align-items: center;
+		  justify-content: center;
+		  z-index: 10;
+		  transform: translateX(-50%);
+		  box-shadow: 0px 0px 30px 22px rgba(0,0,0,0.42);
+		  font-size: 20px;
+		  display: none;
+	  }
+	  </style>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tickers Finance</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<script src="jq.js"></script>
+	<meta name="description" content="Tickers Finance - Easily get every ticker for cryptocurrency exchanges, a replacement for sandwich finance">
+	<meta name="keywords" content="cryptocurrency, tickers, ByBit, Binance, finance, copy tickers">
+	<meta name="robots" content="index, follow">
+	<meta property="og:title" content="Tickers Finance">
+	<meta property="og:description" content="Tickers Finance - Easily get every ticker for cryptocurrency exchanges">
+
+  </head>
+  <body>
+
+	<div class="donation" style="position: fixed; right:20px; top:20px; border: 1px solid rgb(146, 146, 146); padding: 15px 10px 0px 10px; border-radius: 10px; cursor: pointer;"  data-bs-toggle="modal" data-bs-target="#donationsModal">
+		<img class="mx-auto d-block" src="eth.png" height="50" alt="">
+		<p>Donation Box</p>
+	</div>
+
+<div class="modal fade" id="donationsModal" tabindex="-1" aria-labelledby="donationsModal" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h1 class="modal-title fs-5" id="donationsModal">Thank you for considering to donate!</h1>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">
+		  BTC: bc1qs9tcdwkg4q8lxwcg3gy7rknjc5m7w7wy449uls<br>
+		  ETH: 0xaAb4669721F0FC919591c0894F6a169ECfe2fE88 <br>
+		  SOL: 6PQ4rsKVpqaiXQqzkr1HAS4UZUvF5iSbKJ3Wo5MPENZd
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+  </div>
+
+	<div class="toastBox"></div>
+	<div class="container pt-2">
+		<h1 style="font-size: 70px;" class="text-center fw-lighter">Tickers.Finance</h1>
+	</div>
+    <div class="container pt-2">
+		<h4 class="text-center fw-light">Step 1 - Copy tickers</h4>
+		<div class="row row-cols-1 row-cols-md-4 g-4">
+			<div class="col">
+			  <div class="card">
+				<img src="bb2.png" class="card-img-top" alt="ByBit tickers">
+				<div class="card-body">
+				  <h5 class="card-title">ByBit Tickers</h5>
+				  <p class="card-text">
+					<button type="button" onclick="getTickers('bybit-futures')" class="btn btn-outline-light">Copy Futures</button>
+				</p>
+				</div>
+			  </div>
+			</div>
+
+			<div class="col">
+			  <div class="card">
+				<img src="b.png" class="card-img-top" alt="Binance tickers">
+				<div class="card-body">
+				  <h5 class="card-title">Binance Tickers</h5>
+				  <button type="button" onclick="getTickers('binance-futures')" class="btn btn-outline-light">Copy Futures</button>
+				  <button type="button" onclick="getTickers('binance-spot')" class="btn btn-outline-info">Copy Spot</button>
+				</div>
+			  </div>
+			</div>
+<!-- 
+			<div class="col">
+			  <div class="card">
+				<img src="..." class="card-img-top" alt="...">
+				<div class="card-body">
+				  <h5 class="card-title">Card title</h5>
+				  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+				</div>
+			  </div>
+			</div> -->
+
+			<!-- <div class="col">
+			  <div class="card">
+				<img src="..." class="card-img-top" alt="...">
+				<div class="card-body">
+				  <h5 class="card-title">Card title</h5>
+				  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+				</div>
+			  </div>
+			</div> -->
+
+
+		  </div>
+
+		  <div class="container pt-5">
+			<h4 class="text-center fw-light">Step 2 - Paste tickers</h4>
+			<div class="row row-cols-1 row-cols-md-2 g-4">
+				<div class="col">
+				  <div class="card">
+					<div class="card-body">
+						<h5 class="card-title">1 - Click the "+" button on a new list</h5>
+					  </div>
+					<img src="1.png" class="card-img-top" alt="...">
+				  </div>
+				</div>
+
+				<div class="col">
+				  <div class="card">					
+					<div class="card-body">
+						<h5 class="card-title">2 - Paste the tickers in the input bot and hit enter</h5>
+				  	</div>
+					<img src="2.png" class="card-img-top" alt="...">
+				  </div>
+				</div>
+
+			  </div>
+
+
+		  </div>
+
+		  <div class="container pt-2">
+			<p class="text-center">*Tickers are updated once every 24 hours</p>
+		  </div>
+
+	</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+	<script>
+		function getTickers(query){
+			fetch(`getter.php?q=${query}`)
+			.then(response => response.text())
+			.then(text =>{
+				navigator.clipboard.writeText(text).then(() => {
+					toast('Tickers copied to clipboard!', 'green', 3);
+				}, err => {
+					console.error("Failed to copy text: ", err)
+				});
+			})
+			.catch(err => {
+				console.error("Fetch error: ", err)
+			});
+		}
+	</script>
+	<script>
+		function toast(message, bgColor, secondToDisappear){
+			$('.toastBox').css('background-color', bgColor);
+			$('.toastBox').text(message);
+			$('.toastBox').fadeToggle();
+			$('.toastBox').css('display', 'flex');
+
+			$('.toastBox').delay(secondToDisappear * 1000).fadeToggle();
+		}
+	</script>
+  </body>
+</html>
