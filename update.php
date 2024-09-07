@@ -12,7 +12,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-if(isset($_GET["user"]) and $_GET["user"] == "rtfy7986ttfgyu"){
+if(isset($_GET["user"]) and $_GET["user"] == "x"){
     print("updating...");
 } else {
     print("Not authenticated");
@@ -47,11 +47,12 @@ try {
     $data = $bybit_futures["result"]["list"];
     foreach ($data as $item) {
         if (strpos($item["symbol"], "USDT") !== false) {
-            $stmt = $conn->prepare("INSERT IGNORE INTO tickers (exchange, category, ticker) VALUES (?, ?, ?)");
-            $stmt->bind_param("sss", $exchange, $category, $ticker);
             $exchange = 'bybit';
             $category = 'futures';
             $ticker = $item["symbol"];
+
+            $stmt = $conn->prepare("INSERT IGNORE INTO tickers (exchange, category, ticker) VALUES (?, ?, ?)");
+            $stmt->bind_param("sss", $exchange, $category, $ticker);
             $stmt->execute();
         }
     }
@@ -61,25 +62,44 @@ try {
     $spot_response = getJsonFromUrl("https://api.binance.com/api/v3/ticker/price");
     foreach ($spot_response as $item) {
         if (strpos($item['symbol'], "USDT") !== false && strpos($item['symbol'], "_") === false) {
-            $stmt = $conn->prepare("INSERT IGNORE INTO tickers (exchange, category, ticker) VALUES (?, ?, ?)");
-            $stmt->bind_param("sss", $exchange, $category, $ticker);
             $exchange = 'binance';
             $category = 'spot';
             $ticker = $item["symbol"];
+
+            $stmt = $conn->prepare("INSERT IGNORE INTO tickers (exchange, category, ticker) VALUES (?, ?, ?)");
+            $stmt->bind_param("sss", $exchange, $category, $ticker);
             $stmt->execute();
         }
     }
     $conn->commit();
 
-    // USD(s)M Futures
+    // Binance Futures
     $usdsm_futures = getJsonFromUrl("https://testnet.binancefuture.com/fapi/v2/ticker/price");
     foreach ($usdsm_futures as $item) {
         if (strpos($item['symbol'], "USDT") !== false && strpos($item['symbol'], "_") === false) {
-            $stmt = $conn->prepare("INSERT IGNORE INTO tickers (exchange, category, ticker) VALUES (?, ?, ?)");
-            $stmt->bind_param("sss", $exchange, $category, $ticker);
             $exchange = 'binance';
             $category = 'usdsm';
             $ticker = $item["symbol"];
+
+            $stmt = $conn->prepare("INSERT IGNORE INTO tickers (exchange, category, ticker) VALUES (?, ?, ?)");
+            $stmt->bind_param("sss", $exchange, $category, $ticker);
+            $stmt->execute();
+        }
+    }
+    $conn->commit();
+
+    // MEXC Futures
+    $mexc_futures = getJsonFromUrl("https://contract.mexc.com/api/v1/contract/detail");
+    $data = $mexc_futures["data"];
+    foreach ($data as $item) {
+        if (strpos($item["symbol"], "USDT") !== false) {
+            $exchange = 'mexc';
+            $category = 'futures';
+            $ticker = $item["symbol"];
+            $ticker = str_replace("_","",$ticker);
+
+            $stmt = $conn->prepare("INSERT IGNORE INTO tickers (exchange, category, ticker) VALUES (?, ?, ?)");
+            $stmt->bind_param("sss", $exchange, $category, $ticker);
             $stmt->execute();
         }
     }
@@ -93,4 +113,9 @@ try {
         echo "Done";
     }
 }
+
+
+// MEXC Spot "https://api.mexc.com/api/v3/ticker/price"
+
 ?>
+
