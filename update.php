@@ -105,6 +105,7 @@ try {
     }
     $conn->commit();
 
+    // Remove crap
     $conn->query("DELETE FROM tickers WHERE ticker LIKE '%upusdt' OR ticker LIKE '%downusdt'");
 
 
