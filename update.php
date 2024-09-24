@@ -105,6 +105,9 @@ try {
     }
     $conn->commit();
 
+    $conn->query("DELETE FROM tickers WHERE ticker LIKE '%upusdt' OR ticker LIKE '%downusdt'");
+
+
 } catch (mysqli_sql_exception $e) {
     echo "Error: " . $e->getMessage();
 } finally {
